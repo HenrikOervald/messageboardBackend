@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace MessageBoardBackend.Models
 {
-    public class Message
+    public class User
     {
-        public String Owner { get; set; }
-
-        public String Text { get; set; }
+        public String UserName { get; set; }
+        public int UserID { get; set; }
+        public String Password { get; set; }
     }
 }

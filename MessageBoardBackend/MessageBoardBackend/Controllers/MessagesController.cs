@@ -11,26 +11,26 @@ namespace MessageBoardBackend.Controllers
     [Route("api/Messages")]
     public class MessagesController : Controller
     {
-        static List<Models.Message> messages = new 
-            List<Models.Message>{
-                new Models.Message
+        static List<Models.Post> messages = new 
+            List<Models.Post>{
+                new Models.Post
                 {
                     Owner = "John",
                     Text = "Hello all!"
                 },
-                new Models.Message
+                new Models.Post
                 {
                     Owner = "Tim",
                     Text = "Hello John"
                 }
             };
 
-        public IEnumerable<Models.Message> Get() {
+        public IEnumerable<Models.Post> Get() {
             return messages; 
         }
 
         [HttpPost]
-        public Models.Message Post([FromBody] Models.Message message) {
+        public Models.Post Post([FromBody] Models.Post message) {
             messages.Add(message);
             return message;
         }

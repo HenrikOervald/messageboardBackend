@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessageBoardBackend
 {
@@ -28,6 +29,8 @@ namespace MessageBoardBackend
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddDbContext<ApiContext>(opt => opt.UseInMemoryDatabase());
+
             services.AddCors(options => options.AddPolicy("Cors",
                 builder =>
                 {
