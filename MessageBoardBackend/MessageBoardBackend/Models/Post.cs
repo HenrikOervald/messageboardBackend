@@ -7,11 +7,9 @@ namespace MessageBoardBackend.Models
 {
     public class Post
     {
-        public UInt32 ID { get; set; }
-        public int AuthorID { get; set; }
-        public String Text { get; set; }
-
-
+     public String Owner { get; set; }
+     public String Text { get; set; }
+    public DateTime Date { get; set; }
 
     }
 }

@@ -8,7 +8,7 @@ namespace MessageBoardBackend.Models
     public class User
     {
         public String UserName { get; set; }
-        public int UserID { get; set; }
+        public Int32? UserID { get; set; }
         public String Password { get; set; }
     }
 }
