@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace MessageBoardBackend.Controllers
 {
     [Produces("application/json")]
@@ -25,6 +26,7 @@ namespace MessageBoardBackend.Controllers
                 UserID = 2
             }
         };
+
         // GET: api/User
         [HttpGet]
         public IEnumerable<Models.User> Get()
@@ -32,54 +34,43 @@ namespace MessageBoardBackend.Controllers
             return users;
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody] Models.User user)
+        public IActionResult Post([FromBody] Models.User user)
         {
-            for (int i = 0; i < users.Count; i++) {
-
                 if (users.Any(p => p.UserName == user.UserName))
                 {
-                    
-                    System.Diagnostics.Debug.WriteLine("User already exists");
+                 return BadRequest();
                 }
                 else
                 {
                     if (user.UserID == null)
                     {
-                            UserCount++;
-                            user.UserID = UserCount;
-                            users.Add(user);
+                        UserCount++;
+                        user.UserID = UserCount;
+                        users.Add(user);
+                        return Ok();
                     }
                     else
                     {
-                        Console.Error.WriteLine("User not added");
+                        return BadRequest();
                     }
                 }
+        }
+    
+        // DELETE : api/User/{id} 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var i = users.SingleOrDefault(u => u.UserID == id);
+            if (i != null)
+            {
+                users.Remove(i);
+                return Ok(users);
+            }
+            else {
+                return NotFound();
             }
         }
-
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
-        
     }
-
-
 }

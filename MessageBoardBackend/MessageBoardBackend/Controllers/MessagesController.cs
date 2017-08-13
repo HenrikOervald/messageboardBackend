@@ -12,6 +12,7 @@ namespace MessageBoardBackend.Controllers
     [Route("api/Messages")]
     public class MessagesController : Controller
     {
+        //List of all owners. Needs to be substituted with DB connection in the future
         static List<Models.Post> messages = new
             List<Models.Post>{
                 new Models.Post
@@ -28,12 +29,15 @@ namespace MessageBoardBackend.Controllers
                 }
             };
 
+
+        //Returns the messages list containing all messages
         public IEnumerable<Models.Post> Get() {
             return messages; 
         }
 
+        //Returns all messages for a single owner
         [HttpGet("{owner}")]
-        public List<Models.Post> Get(string owner)
+        public IActionResult Get(string owner)
         {
             List<Models.Post> mes = new List<Models.Post> { };
             for(int i=0; i<messages.Count; i++)
@@ -43,13 +47,14 @@ namespace MessageBoardBackend.Controllers
                         
                     }
             }
-            return mes;
+            return Ok(mes);
         }
 
+        //Adds a message to the messages List
         [HttpPost]
-        public Models.Post Post([FromBody] Models.Post message) {
+        public IActionResult Post([FromBody] Models.Post message) {
             messages.Add(message);
-            return message;
+            return Ok(message);
         }
     }
 }

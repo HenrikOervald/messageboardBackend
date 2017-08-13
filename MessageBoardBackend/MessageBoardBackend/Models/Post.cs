@@ -9,7 +9,9 @@ namespace MessageBoardBackend.Models
     {
      public String Owner { get; set; }
      public String Text { get; set; }
-    public DateTime Date { get; set; }
+     public DateTime Date { get; set; }
+      
+
 
     }
 }
