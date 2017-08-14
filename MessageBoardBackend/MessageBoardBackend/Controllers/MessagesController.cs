@@ -12,27 +12,15 @@ namespace MessageBoardBackend.Controllers
     [Route("api/Messages")]
     public class MessagesController : Controller
     {
-        //List of all owners. Needs to be substituted with DB connection in the future
-        static List<Models.Post> messages = new
-            List<Models.Post>{
-                new Models.Post
-                {
-                    Owner = "Henrik",
-                    Text = "Hello all!",
-                    Date = DateTime.Now
-                },
-                new Models.Post
-                {
-                    Owner = "Signe",
-                    Text = "Hello John",
-                    Date = DateTime.Now
-                }
-            };
+        //PostIDCounter should be substituded with id from db
+        static int PostIDCounter = 1;
+
+
 
 
         //Returns the messages list containing all messages
         public IEnumerable<Models.Post> Get() {
-            return messages; 
+            return messages;
         }
 
         //Returns all messages for a single owner
