@@ -7,31 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MessageBoardBackend.DataStorage
 {
-    public class DataStorage : DataControlInterface
+    public class DataStorageController : DataControlInterface
     {
-        private static DataStorage instance;
-        public List<Models.Post> Posts;
-        public List<Models.SubPost> SupPosts;
-
-        public int PostIDCounter = 0;
-
-        private DataStorage() {
-            Posts = new List<Models.Post>();
-            SupPosts = new List<Models.SubPost>();
-        }
-
-        //Singleton class
-        public static DataStorage Instance {
-            get {
-                if (instance == null)
-                {
-                    instance = new DataStorage();
-                }
-                return instance;
-
-            }
-        }
-
         public IActionResult CreateNewPost(Post post)
         {
             throw new NotImplementedException();
@@ -47,7 +24,7 @@ namespace MessageBoardBackend.DataStorage
             throw new NotImplementedException();
         }
 
-        public IActionResult EditAnExistingPost(Models.Post post)
+        public IActionResult EditAnExistingPost(Post post)
         {
             throw new NotImplementedException();
         }
@@ -67,3 +44,4 @@ namespace MessageBoardBackend.DataStorage
             throw new NotImplementedException();
         }
     }
+}

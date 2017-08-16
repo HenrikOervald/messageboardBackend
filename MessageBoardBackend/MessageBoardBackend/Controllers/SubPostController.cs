@@ -11,36 +11,45 @@ namespace MessageBoardBackend.Controllers
     [Route("api/SubPost")]
     public class SubPostController : Controller
     {
+        
         // GET: api/SubPost
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(DataStorage.DataStorage.Instance.SupPosts);
         }
 
         // GET: api/SubPost/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            List<Models.SubPost> returnList = DataStorage.DataStorage.Instance.GetSupPosts(id);
+            if (returnList != null)
+            {
+                return Ok(returnList);
+            }
+            else {
+                return BadRequest();
+            }
         }
         
         // POST: api/SubPost
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] Models.SubPost supPost)
         {
+            if (supPost.PostID == null) {
+                DataStorage.DataStorage.Instance.PostIDCounter++;
+                supPost.PostID =DataStorage.DataStorage.Instance.PostIDCounter ;
+            }
+            DataStorage.DataStorage.Instance.SupPosts.Add(supPost);
+            return Ok(DataStorage.DataStorage.Instance.SupPosts);
         }
-        
-        // PUT: api/SubPost/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public List<Models.SubPost> Delete(int id)
         {
+            return DataStorage.DataStorage.Instance.RemoveSupPost(id);
         }
     }
 }

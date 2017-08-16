@@ -1,0 +1,8 @@
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\bin\Release\netcoreapp1.1\MessageBoardBackend.deps.json
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\bin\Release\netcoreapp1.1\MessageBoardBackend.runtimeconfig.json
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\bin\Release\netcoreapp1.1\MessageBoardBackend.runtimeconfig.dev.json
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\bin\Release\netcoreapp1.1\MessageBoardBackend.dll
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\bin\Release\netcoreapp1.1\MessageBoardBackend.pdb
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\obj\Release\netcoreapp1.1\MessageBoardBackend.AssemblyInfo.cs
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\obj\Release\netcoreapp1.1\MessageBoardBackend.dll
+E:\Henrik\messageboard\backend\MessageBoardBackend\MessageBoardBackend\obj\Release\netcoreapp1.1\MessageBoardBackend.pdb

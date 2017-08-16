@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
+
 
 namespace MessageBoardBackend.Controllers
 {
@@ -12,22 +12,24 @@ namespace MessageBoardBackend.Controllers
     [Route("api/Messages")]
     public class MessagesController : Controller
     {
-        //PostIDCounter should be substituded with id from db
-        static int PostIDCounter = 1;
+        
+        
 
 
 
 
         //Returns the messages list containing all messages
         public IEnumerable<Models.Post> Get() {
-            return messages;
+       
+            return DataStorage.DataStorage.Instance.Posts;
         }
 
         //Returns all messages for a single owner
         [HttpGet("{owner}")]
         public IActionResult Get(string owner)
         {
-            List<Models.Post> mes = new List<Models.Post> { };
+            var messages = DataStorage.DataStorage.Instance.Posts;
+            List<Models.Post> mes = new List<Models.Post>();
             for(int i=0; i<messages.Count; i++)
             {
                 if (messages[i].Owner == owner) {
@@ -41,7 +43,11 @@ namespace MessageBoardBackend.Controllers
         //Adds a message to the messages List
         [HttpPost]
         public IActionResult Post([FromBody] Models.Post message) {
-            messages.Add(message);
+            if (message.PostID == null) {
+                DataStorage.DataStorage.Instance.PostIDCounter++;
+                message.PostID = DataStorage.DataStorage.Instance.PostIDCounter;
+            }
+            DataStorage.DataStorage.Instance.Posts.Add(message);
             return Ok(message);
         }
     }
