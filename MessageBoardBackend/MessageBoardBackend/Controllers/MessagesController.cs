@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
 
 
 namespace MessageBoardBackend.Controllers
@@ -12,16 +14,16 @@ namespace MessageBoardBackend.Controllers
     [Route("api/Messages")]
     public class MessagesController : Controller
     {
-        
-        
+
+        DataStorage.DataStorageController DataStorageController = new DataStorage.DataStorageController();
 
 
 
 
         //Returns the messages list containing all messages
-        public IEnumerable<Models.Post> Get() {
-       
-            return DataStorage.DataStorage.Instance.Posts;
+        public IActionResult Get() {
+
+            return Ok(DataStorageController.GetAllPosts());
         }
 
         //Returns all messages for a single owner
@@ -43,12 +45,16 @@ namespace MessageBoardBackend.Controllers
         //Adds a message to the messages List
         [HttpPost]
         public IActionResult Post([FromBody] Models.Post message) {
-            if (message.PostID == null) {
-                DataStorage.DataStorage.Instance.PostIDCounter++;
-                message.PostID = DataStorage.DataStorage.Instance.PostIDCounter;
+            try
+            {
+                return Ok(DataStorageController.CreateNewPost(message));
             }
-            DataStorage.DataStorage.Instance.Posts.Add(message);
-            return Ok(message);
+            catch(Exceptions.MessageAlreadyExistsException e)
+            {
+                
+                
+                return NotFound() ;
+            }
         }
     }
 }

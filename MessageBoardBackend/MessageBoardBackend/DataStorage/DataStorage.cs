@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MessageBoardBackend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace MessageBoardBackend.DataStorage
 {
@@ -15,14 +16,17 @@ namespace MessageBoardBackend.DataStorage
 
         public int PostIDCounter = 0;
 
-        private DataStorage() {
+        private DataStorage()
+        {
             Posts = new List<Models.Post>();
             SupPosts = new List<Models.SubPost>();
         }
 
         //Singleton class
-        public static DataStorage Instance {
-            get {
+        public static DataStorage Instance
+        {
+            get
+            {
                 if (instance == null)
                 {
                     instance = new DataStorage();
@@ -32,38 +36,58 @@ namespace MessageBoardBackend.DataStorage
             }
         }
 
-        public IActionResult CreateNewPost(Post post)
+        public List<Post> CreateNewPost(Post post)
+        {
+            if (post.PostID == null)
+            {
+                PostIDCounter++;
+                post.PostID = PostIDCounter;
+                Posts.Add(post);
+                return Posts;
+            }
+            else if (!Posts.Any(p => p.PostID == post.PostID))
+            {
+                Posts.Add(post);
+                return Posts;
+            }
+            else {
+                throw new Exceptions.MessageAlreadyExistsException("A Post with that ID already exists");
+            }
+        }
+
+        public List<SubPost> CreateNewSupPostForPost(SubPost post)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult CreateNewSupPostForPost(int id, Post post)
+        public List<Post> DeleteSinglePostWithSubPosts(int idForPost)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult DeleteSinglePostWithSubPosts(int idForPost)
+        public List<Post> EditAnExistingPost(Post post)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult EditAnExistingPost(Models.Post post)
+        public List<SubPost> EditAnExistingSupPost(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult EditAnExistingSupPost(int id)
+        public List<Post> GetAllPosts()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult GetAllPosts()
+        public List<SubPost> GetAllSupPosts()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult GetSubPostForPost(int id)
+        public List<SubPost> GetSubPostForPost(int id)
         {
             throw new NotImplementedException();
         }
     }
+}

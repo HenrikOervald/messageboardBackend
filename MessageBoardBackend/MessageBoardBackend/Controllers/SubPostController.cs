@@ -11,19 +11,20 @@ namespace MessageBoardBackend.Controllers
     [Route("api/SubPost")]
     public class SubPostController : Controller
     {
+        DataStorage.DataStorageController DataStorageController = new DataStorage.DataStorageController();
         
         // GET: api/SubPost
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(DataStorage.DataStorage.Instance.SupPosts);
+            return Ok(DataStorageController.GetAllPosts());
         }
 
         // GET: api/SubPost/5
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int id)
         {
-            List<Models.SubPost> returnList = DataStorage.DataStorage.Instance.GetSupPosts(id);
+            List<Models.SubPost> returnList = DataStorageController.GetAllSupPosts();
             if (returnList != null)
             {
                 return Ok(returnList);
@@ -37,19 +38,20 @@ namespace MessageBoardBackend.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Models.SubPost supPost)
         {
-            if (supPost.PostID == null) {
-                DataStorage.DataStorage.Instance.PostIDCounter++;
-                supPost.PostID =DataStorage.DataStorage.Instance.PostIDCounter ;
+            try
+            {
+                return Ok(DataStorageController.CreateNewSupPostForPost(supPost));
             }
-            DataStorage.DataStorage.Instance.SupPosts.Add(supPost);
-            return Ok(DataStorage.DataStorage.Instance.SupPosts);
+            catch (Exceptions.MessageAlreadyExistsException e) {
+                return BadRequest(e);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public List<Models.SubPost> Delete(int id)
         {
-            return DataStorage.DataStorage.Instance.RemoveSupPost(id);
+            throw new NotImplementedException();
         }
     }
 }

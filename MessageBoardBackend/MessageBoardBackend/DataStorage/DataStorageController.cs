@@ -9,37 +9,44 @@ namespace MessageBoardBackend.DataStorage
 {
     public class DataStorageController : DataControlInterface
     {
-        public IActionResult CreateNewPost(Post post)
+        DataStorage data = DataStorage.Instance;
+
+        public List<Post> CreateNewPost(Post post)
+        {
+            return data.CreateNewPost(post);
+        }
+
+        public List<SubPost> CreateNewSupPostForPost(SubPost post)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult CreateNewSupPostForPost(int id, Post post)
+        public List<Post> DeleteSinglePostWithSubPosts(int idForPost)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult DeleteSinglePostWithSubPosts(int idForPost)
+        public List<Post> EditAnExistingPost(Post post)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult EditAnExistingPost(Post post)
+        public List<SubPost> EditAnExistingSupPost(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult EditAnExistingSupPost(int id)
+        public List<Post> GetAllPosts()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult GetAllPosts()
+        public List<SubPost> GetAllSupPosts()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult GetSubPostForPost(int id)
+        public List<SubPost> GetSubPostForPost(int id)
         {
             throw new NotImplementedException();
         }

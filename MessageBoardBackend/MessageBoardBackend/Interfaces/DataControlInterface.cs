@@ -9,17 +9,18 @@ namespace MessageBoardBackend
     interface DataControlInterface
     {
         //Actions for Posts
-        public IActionResult GetAllPosts();
-        public IActionResult CreateNewPost(Models.Post post);
-        public IActionResult EditAnExistingPost(Models.Post post);
+        List<Models.Post> GetAllPosts();
+        List<Models.Post> CreateNewPost(Models.Post post);
+        List<Models.Post> EditAnExistingPost(Models.Post post);
 
         //Actions for SubPosts
-        public IActionResult GetSubPostForPost(int id);
-        public IActionResult CreateNewSupPostForPost(int id, Models.Post post);
-        public IActionResult EditAnExistingSupPost(int id);
+        List<Models.SubPost> GetAllSupPosts();
+        List<Models.SubPost> GetSubPostForPost(int id);
+        List<Models.SubPost> CreateNewSupPostForPost(Models.SubPost post);
+        List<Models.SubPost> EditAnExistingSupPost(int id);
 
         //Shared actions between Posts and SubPosts
-        public IActionResult DeleteSinglePostWithSubPosts(int idForPost);
+        List<Models.Post> DeleteSinglePostWithSubPosts(int idForPost);
 
     }
 }
