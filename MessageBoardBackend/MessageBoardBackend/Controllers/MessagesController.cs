@@ -17,43 +17,35 @@ namespace MessageBoardBackend.Controllers
 
         DataStorage.DataStorageController DataStorageController = new DataStorage.DataStorageController();
 
-
-
-
         //Returns the messages list containing all messages
         public IActionResult Get() {
-
             return Ok(DataStorageController.GetAllTopLevelPosts());
         }
 
-        //Returns all messages for a single owner
-        [HttpGet("{owner}")]
-        public IActionResult Get(string owner)
-        {
-            var messages = DataStorage.DataStorage.Instance.Posts;
-            List<Models.Post> mes = new List<Models.Post>();
-            for(int i=0; i<messages.Count; i++)
-            {
-                if (messages[i].Owner == owner) {
-                    mes.Add(messages[i]);
-                        
-                    }
-            }
-            return Ok(mes);
+        //Returns 3 levels of supPosts for a post
+        [HttpGet("{post}")]
+        public IActionResult GetSupPostsForUpperLevelPost(Models.Post post) {
+            return Ok(DataStorageController.GetSupPostsForUpperLevelPost(post));
         }
 
         //Adds a message to the messages List
         [HttpPost]
         public IActionResult Post([FromBody] Models.Post message) {
-            try
-            {
+            try{
                 return Ok(DataStorageController.CreateNewPost(message));
             }
-            catch(Exceptions.MessageAlreadyExistsException e)
-            {
-                
-                
+            catch(Exceptions.MessageAlreadyExistsException e){
                 return NotFound() ;
+            }
+        }
+
+        [HttpPut("{post}")]
+        public IActionResult EditAnExistingPost(Models.Post post) {
+            try{
+                return Ok(DataStorageController.EditAnExistingPost(post));
+            }
+            catch(Exceptions.MessageDoesNotExistException e) {
+                return NotFound();
             }
         }
     }

@@ -12,7 +12,7 @@ namespace MessageBoardBackend
         List<Models.Post> GetAllTopLevelPosts();
         List<Models.Post> CreateNewPost(Models.Post post);
         List<Models.Post> EditAnExistingPost(Models.Post post);
-        List<Models.Post> GetSupPostsForTopLevelPost(Models.Post post);
+        List<Models.Post> GetSupPostsForUpperLevelPost(Models.Post post);
        
 
 

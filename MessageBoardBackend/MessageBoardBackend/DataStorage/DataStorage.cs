@@ -77,7 +77,7 @@ namespace MessageBoardBackend.DataStorage
             return returnList;
         }
 
-        public List<Post> GetSupPostsForTopLevelPost(Post post)
+        public List<Post> GetSupPostsForUpperLevelPost(Post post)
         {
             populateChildrenList(post , 2);
             return post.childrensList;

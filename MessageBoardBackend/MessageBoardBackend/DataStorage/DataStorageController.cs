@@ -23,17 +23,17 @@ namespace MessageBoardBackend.DataStorage
 
         public List<Post> EditAnExistingPost(Post post)
         {
-            throw new NotImplementedException();
+            return data.EditAnExistingPost(post);
         }
 
         public List<Post> GetAllTopLevelPosts()
         {
-            throw new NotImplementedException();
+            return GetAllTopLevelPosts();
         }
 
-        public List<Post> GetSupPostsForTopLevelPost(Models.Post post)
+        public List<Post> GetSupPostsForUpperLevelPost(Models.Post post)
         {
-            throw new NotImplementedException();
+            return GetSupPostsForUpperLevelPost(post);
         }
     }
 }
