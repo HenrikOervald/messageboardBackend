@@ -12,6 +12,8 @@ namespace MessageBoardBackend.Models
         public String Owner { get; set; }
         public String Text { get; set; }
         public DateTime Date = DateTime.Now;
+        public int? ParentID { get; set; }
+        public List<Post> childrensList = new List<Post>();
 
 
 

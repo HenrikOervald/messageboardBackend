@@ -23,7 +23,7 @@ namespace MessageBoardBackend.Controllers
         //Returns the messages list containing all messages
         public IActionResult Get() {
 
-            return Ok(DataStorageController.GetAllPosts());
+            return Ok(DataStorageController.GetAllTopLevelPosts());
         }
 
         //Returns all messages for a single owner

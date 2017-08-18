@@ -1,0 +1,26 @@
+
+Api Specification
+
+This file contains the posiblie routes in the API and its return values:
+
+GET: api/messages
+	the routes should return all posts in the database using the DataStorageController (for now the values are stored in the controller it self)
+
+GET: messages
+
+
+
+
+The api needs to be able to:
+
+Return all posts: this is for the front page where all posts should be shown
+Return all subposts for a givin post: this is for the post site that should contain all sub messages for that post
+Return all subposts for all subposts: this need to bee thought thruoug. If a post x has a post y where y.parrentID is the id of post x then we need to find a structure that is satifies this.
+Create a new post: A post for now is a front page post. The problem about this is that it is not adviseble as the frontend should handle the determination of posts on wether they are top post or not.
+Edit a post: this should be nessecary for editing ealier posts
+Delete a post: this is not adviseble as the impact on the database and the bindings in it is pretty big. All suppost for a post also needs to be deleted. The action taken instead should be to modify 
+				information in the post itself. Maybe change text to  : Deleted by (name) on date (date). This should let the subposts and their content stay 
+
+Loggin in as a user: this need some authentication handling ect. handling this with a token based log in
+Logout as a user: if the system above is possible the token not be reusable
+Create new user: a new user should be persisted in the database

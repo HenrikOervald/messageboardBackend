@@ -8,18 +8,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace MessageBoardBackend.DataStorage
 {
-    public class DataStorage : DataControlInterface
+    public class DataStorage : IDataControlInterface
     {
         private static DataStorage instance;
         public List<Models.Post> Posts;
-        public List<Models.SubPost> SupPosts;
 
         public int PostIDCounter = 0;
 
         private DataStorage()
         {
             Posts = new List<Models.Post>();
-            SupPosts = new List<Models.SubPost>();
         }
 
         //Singleton class
@@ -42,7 +40,6 @@ namespace MessageBoardBackend.DataStorage
             {
                 PostIDCounter++;
                 post.PostID = PostIDCounter;
-                Posts.Add(post);
                 return Posts;
             }
             else if (!Posts.Any(p => p.PostID == post.PostID))
@@ -51,43 +48,57 @@ namespace MessageBoardBackend.DataStorage
                 return Posts;
             }
             else {
-                throw new Exceptions.MessageAlreadyExistsException("A Post with that ID already exists");
+                throw new Exceptions.MessageAlreadyExistsException();
             }
-        }
-
-        public List<SubPost> CreateNewSupPostForPost(SubPost post)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Post> DeleteSinglePostWithSubPosts(int idForPost)
-        {
-            throw new NotImplementedException();
         }
 
         public List<Post> EditAnExistingPost(Post post)
         {
-            throw new NotImplementedException();
+            int index = Posts.FindIndex(item => item.PostID == post.PostID);
+            if (index != -1)
+            {
+                Posts[index].Text = post.Text;
+                return Posts;
+            }
+            else {
+                throw new Exceptions.MessageDoesNotExistException();
+            }
         }
 
-        public List<SubPost> EditAnExistingSupPost(int id)
+        public List<Post> GetAllTopLevelPosts()
         {
-            throw new NotImplementedException();
+            List<Post> returnList = new List<Post>();
+            foreach (var post in Posts) {
+                if (post.ParentID == null) {
+                    returnList.Add(post);
+                }
+            }
+
+            return returnList;
         }
 
-        public List<Post> GetAllPosts()
+        public List<Post> GetSupPostsForTopLevelPost(Post post)
         {
-            throw new NotImplementedException();
+            populateChildrenList(post , 2);
+            return post.childrensList;
         }
 
-        public List<SubPost> GetAllSupPosts()
-        {
-            throw new NotImplementedException();
-        }
+        private void populateChildrenList(Post post , int counter) {
+            foreach (Post p in Posts)
+            {
+                if (p.ParentID == post.PostID)
+                {
+                    post.childrensList.Add(p);
+                }
+            }
 
-        public List<SubPost> GetSubPostForPost(int id)
-        {
-            throw new NotImplementedException();
+            if (counter > 0)
+            {
+                foreach (Post x in post.childrensList)
+                {
+                    populateChildrenList(x, counter-1);
+                }
+            }
         }
     }
 }
