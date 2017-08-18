@@ -10,5 +10,6 @@ namespace MessageBoardBackend.Interfaces
         List<Models.User> GetAllUsers();
         Models.User CreateNewUser(Models.User user);
         List<Models.User> GetAllOnlineUsers();
+        
     }
 }
